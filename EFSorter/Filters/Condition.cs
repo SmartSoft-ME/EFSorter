@@ -6,32 +6,47 @@
         {
             "text" => mapTextCondition(),
             "number" => mapNumberCondition(),
+            "date" => mapDateCondition(),
             _ => "",
         };
-        private string mapNumberCondition() => Operator switch
+
+        private string mapDateCondition() => Operator switch
         {
-            "equals" => Field + "=" + Value.ToString(),
-            "notEqual" => Field + "!=" + Value.ToString(),
-            "lessThan" => Field + "<" + Value.ToString(),
-            "lessThanOrEqual" => Field + "<=" + Value.ToString(),
-            "greaterThan" => Field + ">" + Value.ToString(),
-            "greaterThanOrEqual" => Field + ">=" + Value.ToString(),
+            "equals" => Field + "=" + Value,
+            "notEqual" => Field + "!=" + Value,
+            "lessThan" => Field + "<" + Value,
+            "lessThanOrEqual" => Field + "<=" + Value,
+            "greaterThan" => Field + ">" + Value,
+            "greaterThanOrEqual" => Field + ">=" + Value,
+            "blank" => Field + "==null",
+            "notBlank" => Field + "!=null",
+            _ => "",
+        };
+
+    private string mapNumberCondition() => Operator switch
+        {
+            "equals" => Field + "=" + Value,
+            "notEqual" => Field + "!=" + Value,
+            "lessThan" => Field + "<" + Value,
+            "lessThanOrEqual" => Field + "<=" + Value,
+            "greaterThan" => Field + ">" + Value,
+            "greaterThanOrEqual" => Field + ">=" + Value,
             "blank" => Field + "==null",
             "notBlank" => Field + "!=null",
             _ => "",
         };
         private string mapTextCondition() => Operator switch
         {
-            "equals" => Field + "=\"" + Value.ToString() + "\"",
-            "notEqual" => Field + "!=\"" + Value.ToString() + "\"",
-            "contains" => Field + ".Contains(\"" + Value.ToString() + "\")",
-            "contains_i" => Field + ".ToLower().Contains(\"" + Value.ToLower().ToString() + "\")",
-            "notContains" => "!" + Field + ".Contains(\"" + Value.ToString() + "\")",
-            "notContains_i" => "!" + Field + ".ToLower().Contains(\"" + Value.ToLower().ToString() + "\")",
-            "startsWith" => Field + ".StartsWith(\"" + Value.ToString() + "\")",
-            "endsWith" => Field + ".EndsWith(\"" + Value.ToString() + "\")",
-            "blank" => "string.IsNullOrEmpty(\"" + Field.ToString() + "\")",
-            "notBlank" => "!string.IsNullOrEmpty(\"" + Field.ToString() + "\")",
+            "equals" => Field + "=\"" + Value + "\"",
+            "notEqual" => Field + "!=\"" + Value + "\"",
+            "contains" => Field + ".Contains(\"" + Value + "\")",
+            "contains_i" => Field + ".ToLower().Contains(\"" + Value.ToLower() + "\")",
+            "notContains" => "!" + Field + ".Contains(\"" + Value + "\")",
+            "notContains_i" => "!" + Field + ".ToLower().Contains(\"" + Value.ToLower() + "\")",
+            "startsWith" => Field + ".StartsWith(\"" + Value + "\")",
+            "endsWith" => Field + ".EndsWith(\"" + Value + "\")",
+            "blank" => "string.IsNullOrEmpty(\"" + Field + "\")",
+            "notBlank" => "!string.IsNullOrEmpty(\"" + Field + "\")",
             _ => "",
         };
     }
