@@ -6,24 +6,29 @@
         {
             "text" => mapTextCondition(),
             "number" => mapNumberCondition(),
-            "date" => mapDateCondition(),
+            "date" => mapDateCondition()
+            ,
             _ => "",
         };
 
-        private string mapDateCondition() => Operator switch
+        private string mapDateCondition()
         {
-            "equals" => Field + "=" + Value,
-            "notEqual" => Field + "!=" + Value,
-            "lessThan" => Field + "<" + Value,
-            "lessThanOrEqual" => Field + "<=" + Value,
-            "greaterThan" => Field + ">" + Value,
-            "greaterThanOrEqual" => Field + ">=" + Value,
-            "blank" => Field + "==null",
-            "notBlank" => Field + "!=null",
-            _ => "",
-        };
+            var isDate = DateTime.TryParse(Value, out _);
+            if (isDate)
+                return Operator switch
+                {
+                    "equals" => Field + "=" + Value,
+                    "notEqual" => Field + "!=" + Value,
+                    "lessThan" => Field + "<" + Value,
+                    "greaterThan" => Field + ">" + Value,
+                    "blank" => Field + "==null",
+                    "notBlank" => Field + "!=null",
+                    _ => "",
+                };
+            return "";
+        }
 
-    private string mapNumberCondition() => Operator switch
+        private string mapNumberCondition() => Operator switch
         {
             "equals" => Field + "=" + Value,
             "notEqual" => Field + "!=" + Value,
