@@ -13,14 +13,14 @@
 
         private string mapDateCondition()
         {
-            var isDate = DateTime.TryParse(Value, out _);
+            var isDate = DateTime.TryParse(Value, out var validDate);
             if (isDate)
                 return Operator switch
                 {
-                    "equals" => Field + "=" + Value,
-                    "notEqual" => Field + "!=" + Value,
-                    "lessThan" => Field + "<" + Value,
-                    "greaterThan" => Field + ">" + Value,
+                    "equals" => Field + "= \"" + validDate.ToString("s") + "\"",
+                    "notEqual" => Field + "!= \"" + validDate.ToString("s") + "\"",
+                    "lessThan" => Field + "< \"" + validDate.ToString("s") + "\"",
+                    "greaterThan" => Field + "> \"" + validDate.ToString("s") + "\"",
                     "blank" => Field + "==null",
                     "notBlank" => Field + "!=null",
                     _ => "",
