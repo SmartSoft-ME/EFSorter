@@ -18,18 +18,12 @@ jobs:
     - uses: NuGet/setup-nuget@v1.1.1
       with:
            nuget-api-key: ${{secrets.NUGET_SECRET}}
-           source-url: https://nuget.pkg.github.com/<organization>/index.json
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
     - name: Build solution and generate NuGet package
-      run: |  
-          dotnet pack -c Release -o out 
+      run: dotnet pack ./EFSorter/EFSorter.csproj -c Release -o ./EFSorter/out
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols -k ${{secrets.NUGET_SECRET}} -s https://api.nuget.org/v3/index.json true
+      run: dotnet nuget push ./EFSorter/out/*.nupkg --skip-duplicate --no-symbols -k ${{secrets.NUGET_SECRET}} -s https://api.nuget.org/v3/index.json true
