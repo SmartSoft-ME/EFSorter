@@ -4,7 +4,6 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Description>Ef soreter for IQuery</Description>
 		<FileVersion>2.0.1.1</FileVersion>
 		<Version>2.0.2</Version>
