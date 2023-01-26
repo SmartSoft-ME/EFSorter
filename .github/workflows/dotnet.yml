@@ -32,4 +32,4 @@ jobs:
       run: |  
           dotnet pack -c Release -o out 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols --k ${{secrets.NUGET_SECRET}} --s https://api.nuget.org/v3/index.json true
+      run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols -k ${{secrets.NUGET_SECRET}} -s https://api.nuget.org/v3/index.json true
