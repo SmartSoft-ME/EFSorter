@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: NuGet/setup-nuget@v1.1.1
       with:
-           nuget-api-key: ${{NUGET_SECRET}}
+           nuget-api-key: ${{secrets.NUGET_SECRET}}
            source-url: https://nuget.pkg.github.com/<organization>/index.json
     - uses: actions/checkout@v3
     - name: Setup .NET
