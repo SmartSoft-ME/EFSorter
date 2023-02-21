@@ -2,7 +2,7 @@
 {
     public class Filter
     {
-        public Condition Condition1 { get; private set; }
+        public Condition? Condition1 { get; private set; }
         public string? LogicalOperator { get; private set; }
         public Condition? Condition2 { get; private set; }
 

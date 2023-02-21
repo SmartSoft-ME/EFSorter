@@ -3,7 +3,7 @@
     public class MultiFilter
     {
         public List<Filter> Filters { get; private set; }
-        public string BaseOperator { get; private set; } = "and";
+        public string? BaseOperator { get; private set; } = "and";
 
         private MultiFilter() { }
         public MultiFilter(List<Filter> filters, string baseOperator)

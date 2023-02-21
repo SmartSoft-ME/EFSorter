@@ -2,7 +2,7 @@
 {
     public class MultiSorting
     {
-        public string SortBy { get; private set; }
+        public string? SortBy { get; private set; }
 
         private MultiSorting() { }
         public MultiSorting(string sortBy)
