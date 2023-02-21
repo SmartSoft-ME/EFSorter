@@ -1,7 +1,17 @@
 ﻿namespace EFSorter.Filters
 {
-    public record MultiFilter(List<Filter> Filters, string BaseOperator = "and")
+    public class MultiFilter
     {
+        public List<Filter> Filters { get; private set; }
+        public string BaseOperator { get; private set; } = "and";
+
+        private MultiFilter() { }
+        public MultiFilter(List<Filter> filters, string baseOperator)
+        {
+            Filters = filters;
+            BaseOperator = baseOperator;
+        }
+
         public override string ToString()
         {
             if (Filters.Count > 0)

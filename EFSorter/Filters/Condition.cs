@@ -1,8 +1,22 @@
 ﻿namespace EFSorter.Filters
 {
-    public record Condition(string Field, string Type, string Operator, string Value)
+    public class Condition
     {
-        public string Build() => Type switch
+        public string Field { get; private set; }
+        public string Type { get; private set; }
+        public string Operator { get; private set; }
+        public string Value { get; private set; }
+        private Condition() { }
+
+        public Condition(string field, string type, string @operator, string value)
+        {
+            Field = field;
+            Type = type;
+            Operator = @operator;
+            Value = value;
+        }
+
+        public string Build() => Type.ToLowerInvariant() switch
         {
             "text" => mapTextCondition(),
             "number" => mapNumberCondition(),

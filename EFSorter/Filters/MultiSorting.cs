@@ -1,13 +1,21 @@
 ﻿namespace EFSorter.Filters
 {
-    public record MultiSorting(string sortBy)
+    public class MultiSorting
     {
+        public string SortBy { get; private set; }
+
+        private MultiSorting() { }
+        public MultiSorting(string sortBy)
+        {
+            SortBy = sortBy;
+        }
+
         public override string ToString()
         {
-            if (string.IsNullOrEmpty(sortBy))
+            if (string.IsNullOrEmpty(SortBy))
                 return string.Empty;
             var sortings = new List<Sorting>();
-            sortings.AddRange(sortBy.Split(',').Select(s => new Sorting(s)));
+            sortings.AddRange(SortBy.Split(',').Select(s => new Sorting(s)));
 
             return string.Join(',', sortings.Select(s => s.ToString()));
         }
