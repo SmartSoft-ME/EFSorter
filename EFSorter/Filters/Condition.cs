@@ -2,11 +2,11 @@
 {
     public class Condition
     {
-        public string Field { get; private set; }
-        public string Type { get; private set; }
-        public string Operator { get; private set; }
-        public string Value { get; private set; }
-        private Condition() { }
+        public string Field { get; set; }
+        public string Type { get; set; }
+        public string Operator { get; set; }
+        public string Value { get; set; }
+        public Condition() { }
 
         public Condition(string field, string type, string @operator, string value)
         {

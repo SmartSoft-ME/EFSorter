@@ -2,7 +2,7 @@
 {
     public class Sorting
     {
-        public string SortBy { get; private set; }
+        public string SortBy { get; set; }
 
         private Sorting() { }
         public Sorting(string sortBy)

@@ -2,8 +2,8 @@
 {
     public class MultiFilter
     {
-        public List<Filter> Filters { get; private set; }
-        public string? BaseOperator { get; private set; } = "and";
+        public List<Filter> Filters { get; set; }
+        public string? BaseOperator { get; set; } = "and";
 
         private MultiFilter() { }
         public MultiFilter(List<Filter> filters, string baseOperator)
