@@ -20,8 +20,9 @@
         {
             "text" => mapTextCondition(),
             "number" => mapNumberCondition(),
-            "date" => mapDateCondition()
-            ,
+            "date" => mapDateCondition(),
+            "guids" => mapGuidsCondition(),
+            "object" => mapObjectCondition(),
             _ => "",
         };
 
@@ -67,6 +68,18 @@
             "blank" => "string.IsNullOrEmpty(\"" + Field + "\")",
             "notBlank" => "!string.IsNullOrEmpty(\"" + Field + "\")",
             _ => "",
+        };
+        private string mapGuidsCondition() => Operator switch
+        {
+            "in" => Field + ".Select(\"@Guid\").Contains(\"" + Value + "\")",
+            "notIn" => "!" + Field + ".Select(\"@Guid\").Contains(\"" + Value + "\")",
+            _ => ""
+        };
+        private string mapObjectCondition() => Operator switch
+        {
+            "blank" => "\"" + Field + "\"==null",
+            "notBlank" => "\"" + Field + "\"!=null",
+            _ => ""
         };
     }
 }
