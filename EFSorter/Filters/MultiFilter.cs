@@ -15,7 +15,7 @@
         public override string ToString()
         {
             if (Filters.Count > 0)
-                return string.Join(" " + BaseOperator + " ", Filters.Select(f => f.ToString()));
+                return string.Join(" " + BaseOperator ?? "and" + " ", Filters.Select(f => f.ToString()));
             return string.Empty;
         }
     }
