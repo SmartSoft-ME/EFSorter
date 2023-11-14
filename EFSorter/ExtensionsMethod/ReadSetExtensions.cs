@@ -1,6 +1,7 @@
-﻿using EFSorter.Filters;
-using System.Data;
+﻿using System.Data;
 using System.Linq.Dynamic.Core;
+
+using EFSorter.Filters;
 namespace EFSorter.ExtensionsMethod
 {
     public static class ReadSetExtensions
@@ -9,7 +10,7 @@ namespace EFSorter.ExtensionsMethod
         {
             if (sorting is not null)
                 source = source.OrderBy(sorting.ToString()).AsQueryable();
-            if (filter is not null)
+            if (filter is not null || !string.IsNullOrEmpty(filter.ToString()))
                 source = source.Where(filter.ToString()).AsQueryable();
             return source;
         }

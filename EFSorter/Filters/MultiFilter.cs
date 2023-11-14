@@ -6,7 +6,7 @@
         public string? BaseOperator { get; set; } = "and";
 
         private MultiFilter() { }
-        public MultiFilter(List<Filter> filters, string baseOperator)
+        public MultiFilter(List<Filter> filters, string? baseOperator = "and")
         {
             Filters = filters;
             BaseOperator = baseOperator;
