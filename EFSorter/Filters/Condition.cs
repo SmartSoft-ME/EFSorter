@@ -77,8 +77,8 @@
         };
         private string mapObjectCondition() => Operator switch
         {
-            "blank" => "\"" + Field + "\"==null",
-            "notBlank" => "\"" + Field + "\"!=null",
+            "blank" => "" + Field + "==null",
+            "notBlank" => "" + Field + "!=null",
             _ => ""
         };
     }

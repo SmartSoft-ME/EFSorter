@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Linq.Dynamic.Core;
+
 using Bogus;
 
 using EFSorter.ExtensionsMethod;
@@ -13,16 +15,28 @@ var test = new Faker<Person>()
 Console.WriteLine("Before Applying the filter");
 Console.WriteLine("<------------------------>");
 var list = test.Generate(20);
+foreach (var item in list)
+{
+    if (item.Id % 2 == 1)
+        item.Blank = "A";
+}
 var filters = new List<Filter>
 {
     new(new("BirthDay","date","equals","12/17/1996"),null,null)
 };
+var anotherFilter = new List<Filter>
+{
+    new(new("Blank","object","blank",""),null,null)
+};
+
 MultiFilter filter = new(filters);
+MultiFilter filter1 = new(anotherFilter);
 foreach (Person p in list)
 {
     Console.WriteLine(p.BirthDay);
 }
 var res = list.AsQueryable().ApplyFilters(filter, null);
+var res1 = list.AsQueryable().ApplyFilters(filter1, null);
 Console.WriteLine("After Applying the filter");
 Console.WriteLine("<------------------------>");
 foreach (Person p in res.ToList())
@@ -39,4 +53,5 @@ public record Person
     public int Id { get; set; }
     public string FirstName { get; set; }
     public DateTime BirthDay { get; set; }
+    public string? Blank { get; set; }
 }

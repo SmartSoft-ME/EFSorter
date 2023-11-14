@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<Description>Ef soreter for IQuery</Description>
 		<FileVersion>2.0.1.1</FileVersion>
-		<Version>2.1.0</Version>
+		<Version>2.1.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
