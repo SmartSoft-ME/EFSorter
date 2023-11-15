@@ -10,7 +10,7 @@ namespace EFSorter.ExtensionsMethod
         {
             if (sorting is not null)
                 source = source.OrderBy(sorting.ToString()).AsQueryable();
-            if (filter is not null || !string.IsNullOrEmpty(filter.ToString()))
+            if (filter is not null || !string.IsNullOrEmpty(filter?.ToString()))
                 source = source.Where(filter.ToString()).AsQueryable();
             return source;
         }

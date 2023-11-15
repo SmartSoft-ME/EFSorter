@@ -37,6 +37,7 @@ foreach (Person p in list)
 }
 var res = list.AsQueryable().ApplyFilters(filter, null);
 var res1 = list.AsQueryable().ApplyFilters(filter1, null);
+var res2 = list.AsQueryable().ApplyFilters(null, null);
 Console.WriteLine("After Applying the filter");
 Console.WriteLine("<------------------------>");
 foreach (Person p in res.ToList())
