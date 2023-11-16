@@ -33,10 +33,16 @@ var yetAnotherFilter = new List<Filter>
 {
     new(new("Addresses","guids","notIn","e97eef8f-5636-42a5-894e-9401c65c21dc"),null,null)
 };
+var threeFilters = new List<Filter>
+{
+    new(new("FirstName","text","contains_i","e"), "or", new("FirstName","text","contains_i","a")),
+    new(new("Id", "number", "equals", "1"), null, null)
+};
 
 MultiFilter filter = new(filters);
 MultiFilter filter1 = new(anotherFilter);
 MultiFilter filter2 = new(yetAnotherFilter);
+MultiFilter filter3 = new(threeFilters, "and");
 foreach (Person p in list)
 {
     Console.WriteLine(p.BirthDay);
@@ -45,9 +51,10 @@ var res = list.AsQueryable().ApplyFilters(filter, null);
 var res1 = list.AsQueryable().ApplyFilters(filter1, null);
 var res2 = list.AsQueryable().ApplyFilters(filter2, null);
 var res3 = list.AsQueryable().ApplyFilters(null, null);
+var res4 = list.AsQueryable().ApplyFilters(filter3, null);
 Console.WriteLine("After Applying the filter");
 Console.WriteLine("<------------------------>");
-foreach (Person p in res.ToList())
+foreach (Person p in res4.ToList())
 {
     Console.WriteLine(p);
 }
