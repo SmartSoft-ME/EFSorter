@@ -71,8 +71,8 @@
         };
         private string mapGuidsCondition() => Operator switch
         {
-            "in" => Field + ".Select(\"@Guid\").Contains(\"" + Value + "\")",
-            "notIn" => "!" + Field + ".Select(\"@Guid\").Contains(\"" + Value + "\")",
+            "in" => Field + ".Any(x => x.Guid ==\"" + Value + "\")",
+            "notIn" => "!" + Field + ".Any(x => x.Guid == \"" + Value + "\")",
             _ => ""
         };
         private string mapObjectCondition() => Operator switch
