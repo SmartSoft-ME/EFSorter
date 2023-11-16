@@ -9,11 +9,25 @@
 
   <ItemGroup>
     <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="EPPlus" Version="7.0.1" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EFSorter\EFSorter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="themes\Banded.thmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="themes\Ion.thmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="themes\Parallax.thmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

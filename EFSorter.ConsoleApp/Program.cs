@@ -2,8 +2,14 @@
 
 using Bogus;
 
+using EFSorter.ConsoleApp;
 using EFSorter.ExtensionsMethod;
 using EFSorter.Filters;
+
+using OfficeOpenXml;
+
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
 Randomizer.Seed = new Random(69);
 var Ids = 0;
 
@@ -11,7 +17,8 @@ var test = new Faker<Person>()
     .RuleFor(p => p.Id, f => Ids++)
     .RuleFor(p => p.FirstName, f => f.Name.FullName())
     .RuleFor(p => p.BirthDay, f => f.Date.Past(50).Date)
-    .RuleFor(p => p.Addresses, f => new() { new(Guid.NewGuid(), "TEST") });
+    .RuleFor(p => p.Addresses, f => new() { new(Guid.NewGuid(), "TEST"), new(Guid.NewGuid(), "TEST1") })
+    .RuleFor(p => p.Natchos, f => new() { new(Guid.NewGuid(), "Natcho"), new(Guid.NewGuid(), "Natcho") });
 Console.WriteLine("Before Applying the filter");
 Console.WriteLine("<------------------------>");
 var list = test.Generate(20);
@@ -54,7 +61,7 @@ foreach (Person p in res.ToList())
 
 var specificDate = list.FirstOrDefault(p => p.BirthDay == DateTime.Parse("12/17/1996 12:00:00 AM"));
 Console.WriteLine(specificDate);
-
+var t = new ExcelGenerator<Person>(list);
 //record Person(int Id, string FirstName, DateTime BirthDay);
 public record Person
 {
@@ -63,6 +70,7 @@ public record Person
     public DateTime BirthDay { get; set; }
     public string? Blank { get; set; }
     public List<Address> Addresses { get; set; } = new();
+    public List<Natcho> Natchos { get; set; } = new();
 }
 
 public record Address
@@ -72,7 +80,24 @@ public record Address
         Guid = guid;
         Name = name;
     }
-
+    public override string ToString()
+    {
+        return Name;
+    }
+    public Guid Guid { get; set; }
+    public string Name { get; set; }
+}
+public record Natcho
+{
+    public Natcho(Guid guid, string name)
+    {
+        Guid = guid;
+        Name = name;
+    }
+    public override string ToString()
+    {
+        return Name;
+    }
     public Guid Guid { get; set; }
     public string Name { get; set; }
 }
