@@ -27,6 +27,8 @@ foreach (var item in list)
 {
     if (item.Id % 2 == 1)
         item.Blank = "A";
+    else
+        item.Blank = "";
 }
 var filters = new List<Filter>
 {
@@ -34,7 +36,7 @@ var filters = new List<Filter>
 };
 var anotherFilter = new List<Filter>
 {
-    new(new("Blank","object","blank",""),null,null)
+    new(new("Blank","text","notBlank",""),null,null)
 };
 var yetAnotherFilter = new List<Filter>
 {
