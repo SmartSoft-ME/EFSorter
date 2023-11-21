@@ -14,7 +14,7 @@
             Field = field;
             Type = type;
             Operator = @operator;
-            Value = type == "number" ? value : "\"" + value + "\"";
+            Value = value;
         }
 
         public string Build() => Type.ToLowerInvariant() switch
@@ -34,10 +34,10 @@
 
             return Operator switch
             {
-                "equals" => $"{Field} = {validDate:s}",
-                "notEqual" => $"{Field} != {validDate:s}",
-                "lessThan" => $"{Field} < {validDate:s}",
-                "greaterThan" => $"{Field} > {validDate:s}",
+                "equals" => $"{Field} = \"{validDate:s}\"",
+                "notEqual" => $"{Field} != \"{validDate:s}\"",
+                "lessThan" => $"{Field} < \"{validDate:s}\"",
+                "greaterThan" => $"{Field} > \"{validDate:s}\"",
                 "blank" => $"{Field} == null",
                 "notBlank" => $"{Field} != null",
                 _ => "",
@@ -59,23 +59,23 @@
 
         private string MapTextCondition() => Operator switch
         {
-            "equals" => $"{Field} = {Value}",
-            "notEqual" => $"{Field} != {Value}",
-            "contains" => $"{Field}.Contains({Value})",
-            "contains_i" => $"{Field}.ToLower().Contains({Value.ToLower()})",
-            "notContains" => $"!{Field}.Contains({Value})",
-            "notContains_i" => $"!{Field}.ToLower().Contains({Value.ToLower()})",
-            "startsWith" => $"{Field}.StartsWith({Value})",
-            "endsWith" => $"{Field}.EndsWith({Value})",
-            "blank" => $"string.IsNullOrEmpty({Field})",
-            "notBlank" => $"!string.IsNullOrEmpty({Field})",
+            "equals" => $"{Field} = \"{Value}\"",
+            "notEqual" => $"{Field} != \"{Value}\"",
+            "contains" => $"{Field}.Contains(\"{Value}\")",
+            "contains_i" => $"{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
+            "notContains" => $"!{Field}.Contains(\"{Value}\")",
+            "notContains_i" => $"!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
+            "startsWith" => $"{Field}.StartsWith(\"{Value}\")",
+            "endsWith" => $"{Field}.EndsWith(\"{Value}\")",
+            "blank" => $"string.IsNullOrEmpty(\"{Field}\")",
+            "notBlank" => $"!string.IsNullOrEmpty(\"{Field}\")",
             _ => "",
         };
 
         private string MapGuidsCondition() => Operator switch
         {
-            "in" => $"{Field}.Any(x => x.Guid == {Value})",
-            "notIn" => $"!{Field}.Any(x => x.Guid == {Value})",
+            "in" => $"{Field}.Any(x => x.Guid == \"{Value}\")",
+            "notIn" => $"!{Field}.Any(x => x.Guid == \"{Value}\")",
             _ => "",
         };
 

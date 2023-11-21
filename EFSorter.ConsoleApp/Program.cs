@@ -43,16 +43,27 @@ var notInFilter = new List<Filter>
 };
 var threeFilters = new List<Filter>
 {
-    new(new("FirstName","text","contains_i","e"), "or", new("FirstName","text","contains_i","a")),
-    new(new("Id", "number", "equals", "1"), null, null)
+    new(new("FirstName","text","contains_i","e"), "or",
+    new("FirstName","text","contains_i","a")),
+    new(new("Id", "number", "equals", "1"), null, null),
+};
+var test1 = new List<Filter>
+{
+    new(new("FirstName","text","contains_i","as"),"AND",null)
 };
 
+var textFilter = new List<Filter>
+{
+    new(new("FirstName","text","contains_i","e"), null,null)
+};
 var filter = new MultiFilter(dateFilter);
 var filter1 = new MultiFilter(blankFilter);
 var filter2 = new MultiFilter(notInFilter);
 var filter3 = new MultiFilter(threeFilters, "and");
-
-var res = people.AsQueryable().ApplyFilters(filter3, null);
+var filter4 = new MultiFilter(textFilter);
+var filter5 = new MultiFilter(test1);
+var res = people.AsQueryable().ApplyFilters(filter4, null);
+var res1 = people.AsQueryable().ApplyFilters(filter5, null);
 
 Console.WriteLine("After Applying the filter");
 Console.WriteLine("<------------------------>");
