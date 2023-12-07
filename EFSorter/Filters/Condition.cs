@@ -22,12 +22,30 @@
             "text" => MapTextCondition(),
             "number" => MapNumberCondition(),
             "date" => MapDateCondition(),
+            "datetime" => MapDateTimeCondition(),
             "guids" => MapGuidsCondition(),
             "object" => MapObjectCondition(),
             _ => "",
         };
 
         private string MapDateCondition()
+        {
+            var isDate = DateTime.TryParse(Value, out var validDate);
+            validDate = validDate.Date;
+            if (!isDate) return "";
+
+            return Operator switch
+            {
+                "equals" => $"{Field}.Date = \"{validDate:s}\"",
+                "notEqual" => $"{Field}.Date != \"{validDate:s}\"",
+                "lessThan" => $"{Field}.Date < \"{validDate:s}\"",
+                "greaterThan" => $"{Field}.Date > \"{validDate:s}\"",
+                "blank" => $"{Field}.Date == null",
+                "notBlank" => $"{Field}.Date != null",
+                _ => "",
+            };
+        }
+        private string MapDateTimeCondition()
         {
             var isDate = DateTime.TryParse(Value, out var validDate);
             if (!isDate) return "";

@@ -31,7 +31,11 @@ foreach (var person in people)
 // filters
 var dateFilter = new List<Filter>
 {
-    new(new("BirthDay","date","equals","12/17/1996"),null,null)
+    new(new("BirthDay","date","equals","1/9/1974 4:34:22 AM"),null,null)
+};
+var dateTimeFilter = new List<Filter>
+{
+    new(new("BirthDay","datetime","equals","1/9/1974 4:34:22 AM"),null,null)
 };
 var blankFilter = new List<Filter>
 {
@@ -62,12 +66,18 @@ var filter2 = new MultiFilter(notInFilter);
 var filter3 = new MultiFilter(threeFilters, "and");
 var filter4 = new MultiFilter(textFilter);
 var filter5 = new MultiFilter(test1);
+var filter6 = new MultiFilter(dateTimeFilter);
 var res = people.AsQueryable().ApplyFilters(filter4, null);
 var res1 = people.AsQueryable().ApplyFilters(filter5, null);
+var res2 = people.AsQueryable().ApplyFilters(filter, null);
+var res3 = people.AsQueryable().ApplyFilters(filter6, null);
 
 Console.WriteLine("After Applying the filter");
 Console.WriteLine("<------------------------>");
-res.ToList().ForEach(Console.WriteLine);
+Console.WriteLine("Date filter result:");
+res2.ToList().ForEach(Console.WriteLine);
+Console.WriteLine("DateTime filter result:");
+res3.ToList().ForEach(Console.WriteLine);
 
 var t = new ExcelGenerator<Person>(people);
 
