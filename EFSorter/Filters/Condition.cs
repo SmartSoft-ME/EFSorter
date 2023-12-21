@@ -17,16 +17,20 @@
             Value = value;
         }
 
-        public string Build() => Type.ToLowerInvariant() switch
+        public string Build()
         {
-            "text" => MapTextCondition(),
-            "number" => MapNumberCondition(),
-            "date" => MapDateCondition(),
-            "datetime" => MapDateTimeCondition(),
-            "guids" => MapGuidsCondition(),
-            "object" => MapObjectCondition(),
-            _ => "",
-        };
+            Field = Field.ToLowerInvariant() == "guid" ? "@Guid" : Field.ToLowerInvariant() == "parent" ? "@Parent" : Field;
+            return Type.ToLowerInvariant() switch
+            {
+                "text" => MapTextCondition(),
+                "number" => MapNumberCondition(),
+                "date" => MapDateCondition(),
+                "datetime" => MapDateTimeCondition(),
+                "guids" => MapGuidsCondition(),
+                "object" => MapObjectCondition(),
+                _ => "",
+            };
+        }
 
         private string MapDateCondition()
         {
