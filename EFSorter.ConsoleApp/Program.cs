@@ -25,8 +25,8 @@ people.First().Parent = new Person()
     Id = Ids + 1,
     FirstName = "Findme",
     BirthDay = DateTime.Now,
-    Addresses = [],
-    Nachos = []
+    Addresses = new(),
+    Nachos = new()
 };
 
 Console.WriteLine("Before Applying the filter");
@@ -107,8 +107,8 @@ public record Person
     public string? Blank { get; set; }
     public Person? Parent { get; set; }
 
-    public List<Address> Addresses { get; set; } = [];
-    public List<Nacho> Nachos { get; set; } = [];
+    public List<Address> Addresses { get; set; } = new();
+    public List<Nacho> Nachos { get; set; } = new();
 }
 
 public record Address
