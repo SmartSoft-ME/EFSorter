@@ -19,7 +19,7 @@
 
         public string Build()
         {
-            Field = Field.ToLowerInvariant() == "guid" ? "@Guid" : Field.ToLowerInvariant() == "parent" ? "@Parent" : Field;
+            Field = Field.ToLowerInvariant() == "guid" ? "@Guid" : Field.ToLowerInvariant().Contains("parent") ? Field.ToLowerInvariant().Replace("parent", "@Parent") : Field;
             return Type.ToLowerInvariant() switch
             {
                 "text" => MapTextCondition(),
@@ -94,6 +94,20 @@
             _ => "",
         };
 
+        private string MapNestedTextCondition() => Operator switch
+        {
+            "equals" => $"np({Field}) = \"{Value}\"",
+            "notEqual" => $"np({Field}) != \"{Value}\"",
+            "contains" => $"np({Field}) != null && {Field}.Contains(\"{Value}\")",
+            "contains_i" => $"np({Field}) != null && {Field}.ToLower().Contains(\"{Value.ToLower()}\")",
+            "notContains" => $"np({Field}) != null && !{Field}.Contains(\"{Value}\")",
+            "notContains_i" => $"np({Field}) != null &&!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
+            "startsWith" => $"np({Field}) != null &&{Field}.StartsWith(\"{Value}\")",
+            "endsWith" => $"np({Field}) != null &&{Field}.EndsWith(\"{Value}\")",
+            "blank" => $"np({Field}) != null && string.IsNullOrEmpty(\"{Field}\")",
+            "notBlank" => $"np({Field}) != null && !string.IsNullOrEmpty(\"{Field}\")",
+            _ => "",
+        };
         private string MapGuidsCondition() => Operator switch
         {
             "in" => $"{Field}.Any(x => x.Guid == \"{Value}\")",

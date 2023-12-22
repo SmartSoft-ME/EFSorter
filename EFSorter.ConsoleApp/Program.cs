@@ -20,6 +20,7 @@ var test = new Faker<Person>()
 
 var people = test.Generate(20);
 people.First().Addresses.FirstOrDefault()!.Guid = new Guid("e97eef8f-5636-42a5-894e-9401c65c21dc");
+people.First().Parent = new Person() { Id = Ids + 1, FirstName = "Findme", BirthDay = DateTime.Now, Addresses = new(), Nachos = new() };
 Console.WriteLine("Before Applying the filter");
 Console.WriteLine("<------------------------>");
 foreach (var person in people)
@@ -56,6 +57,11 @@ var test1 = new List<Filter>
     new(new("FirstName","text","contains_i","as"),"AND",null)
 };
 
+var parentFilter = new List<Filter>
+{
+    new(new("Parent.FirstName","text","contains_i","Find"),"AND",null)
+};
+
 var textFilter = new List<Filter>
 {
     new(new("FirstName","text","contains_i","e"), null,null)
@@ -67,10 +73,13 @@ var filter3 = new MultiFilter(threeFilters, "and");
 var filter4 = new MultiFilter(textFilter);
 var filter5 = new MultiFilter(test1);
 var filter6 = new MultiFilter(dateTimeFilter);
+var filter7 = new MultiFilter(parentFilter);
+
 var res = people.AsQueryable().ApplyFilters(filter4, null);
 var res1 = people.AsQueryable().ApplyFilters(filter5, null);
 var res2 = people.AsQueryable().ApplyFilters(filter, null);
 var res3 = people.AsQueryable().ApplyFilters(filter6, null);
+var res4 = people.AsQueryable().ApplyFilters(filter7, null);
 
 Console.WriteLine("After Applying the filter");
 Console.WriteLine("<------------------------>");
@@ -78,6 +87,7 @@ Console.WriteLine("Date filter result:");
 res2.ToList().ForEach(Console.WriteLine);
 Console.WriteLine("DateTime filter result:");
 res3.ToList().ForEach(Console.WriteLine);
+res4.ToList().ForEach(Console.WriteLine);
 
 var t = new ExcelGenerator<Person>(people);
 
@@ -87,6 +97,8 @@ public record Person
     public string FirstName { get; set; }
     public DateTime BirthDay { get; set; }
     public string? Blank { get; set; }
+    public Person? Parent { get; set; }
+
     public List<Address> Addresses { get; set; } = new();
     public List<Nacho> Nachos { get; set; } = new();
 }
@@ -106,6 +118,7 @@ public record Nacho
 {
     public Guid Guid { get; set; }
     public string Name { get; set; }
+
     public Nacho(Guid guid, string name)
     {
         Guid = guid;
