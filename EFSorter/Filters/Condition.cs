@@ -19,7 +19,9 @@
 
         public string Build()
         {
-            Field = !Field.StartsWith('@') && Field.Equals("guid", StringComparison.InvariantCultureIgnoreCase) ? "@Guid" : Field.Contains("parent", StringComparison.InvariantCultureIgnoreCase) ? Field.ToLowerInvariant().Replace("parent", "@Parent") : Field;
+            if (!Field.StartsWith('@') && (Field.Contains("guid", StringComparison.InvariantCultureIgnoreCase) || Field.Contains("parent", StringComparison.InvariantCultureIgnoreCase)))
+                Field = Field.Insert(0, "@");
+
             return Type.ToLowerInvariant() switch
             {
                 "text" => MapTextCondition(),
