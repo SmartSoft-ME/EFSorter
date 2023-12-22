@@ -19,7 +19,7 @@
 
         public string Build()
         {
-            Field = Field.ToLowerInvariant() == "guid" ? "@Guid" : Field.ToLowerInvariant().Contains("parent") ? Field.ToLowerInvariant().Replace("parent", "@Parent") : Field;
+            Field = !Field.StartsWith('@') && Field.Equals("guid", StringComparison.InvariantCultureIgnoreCase) ? "@Guid" : Field.Contains("parent", StringComparison.InvariantCultureIgnoreCase) ? Field.ToLowerInvariant().Replace("parent", "@Parent") : Field;
             return Type.ToLowerInvariant() switch
             {
                 "text" => MapTextCondition(),
@@ -80,7 +80,7 @@
         };
 
         private string MapTextCondition()
-            => Field.Split('.').Length > 1 ? MapNotNestedTextCondition() : MapNestedTextCondition();
+            => Field.Split('.').Length > 1 ? MapNestedTextCondition() : MapNotNestedTextCondition();
 
         private string MapNotNestedTextCondition()
         {

@@ -14,9 +14,7 @@
         {
             if (string.IsNullOrEmpty(SortBy))
                 return string.Empty;
-            var sortings = new List<Sorting>();
-            sortings.AddRange(SortBy.Split(',').Select(s => new Sorting(s)));
-
+            List<Sorting> sortings = [.. SortBy.Split(',').Select(s => new Sorting(s))];
             return string.Join(',', sortings.Select(s => s.ToString()));
         }
     }

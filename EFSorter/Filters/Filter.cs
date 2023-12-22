@@ -2,7 +2,7 @@
 {
     public class Filter
     {
-        public Condition? Condition1 { get;  set; }
+        public Condition? Condition1 { get; set; }
         public string? LogicalOperator { get; set; }
         public Condition? Condition2 { get; set; }
 
@@ -15,8 +15,9 @@
         }
 
         public override string ToString()
-            => Condition2 is null || string.IsNullOrEmpty(LogicalOperator) ?
-                Condition1.Build() :
-                "(" + Condition1.Build() + " " + LogicalOperator + " " + Condition2.Build() + ")";
+            => Condition1 is not null ?
+                    (Condition2 is null || string.IsNullOrEmpty(LogicalOperator)) ?
+                        Condition1.Build() :
+                        "(" + Condition1.Build() + " " + LogicalOperator + " " + Condition2.Build() + ")" : "";
     }
 }

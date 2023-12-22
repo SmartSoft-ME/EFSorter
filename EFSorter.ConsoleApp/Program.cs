@@ -20,7 +20,15 @@ var test = new Faker<Person>()
 
 var people = test.Generate(20);
 people.First().Addresses.FirstOrDefault()!.Guid = new Guid("e97eef8f-5636-42a5-894e-9401c65c21dc");
-people.First().Parent = new Person() { Id = Ids + 1, FirstName = "Findme", BirthDay = DateTime.Now, Addresses = new(), Nachos = new() };
+people.First().Parent = new Person()
+{
+    Id = Ids + 1,
+    FirstName = "Findme",
+    BirthDay = DateTime.Now,
+    Addresses = [],
+    Nachos = []
+};
+
 Console.WriteLine("Before Applying the filter");
 Console.WriteLine("<------------------------>");
 foreach (var person in people)
@@ -75,11 +83,11 @@ var filter5 = new MultiFilter(test1);
 var filter6 = new MultiFilter(dateTimeFilter);
 var filter7 = new MultiFilter(parentFilter);
 
+var res4 = people.AsQueryable().ApplyFilters(filter7, null);
 var res = people.AsQueryable().ApplyFilters(filter4, null);
 var res1 = people.AsQueryable().ApplyFilters(filter5, null);
 var res2 = people.AsQueryable().ApplyFilters(filter, null);
 var res3 = people.AsQueryable().ApplyFilters(filter6, null);
-var res4 = people.AsQueryable().ApplyFilters(filter7, null);
 
 Console.WriteLine("After Applying the filter");
 Console.WriteLine("<------------------------>");
@@ -94,13 +102,13 @@ var t = new ExcelGenerator<Person>(people);
 public record Person
 {
     public int Id { get; set; }
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
     public DateTime BirthDay { get; set; }
     public string? Blank { get; set; }
     public Person? Parent { get; set; }
 
-    public List<Address> Addresses { get; set; } = new();
-    public List<Nacho> Nachos { get; set; } = new();
+    public List<Address> Addresses { get; set; } = [];
+    public List<Nacho> Nachos { get; set; } = [];
 }
 
 public record Address
