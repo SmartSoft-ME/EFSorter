@@ -79,21 +79,26 @@
             _ => "",
         };
 
-        private string MapTextCondition() => Operator switch
-        {
-            "equals" => $"{Field} = \"{Value}\"",
-            "notEqual" => $"{Field} != \"{Value}\"",
-            "contains" => $"{Field}.Contains(\"{Value}\")",
-            "contains_i" => $"{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
-            "notContains" => $"!{Field}.Contains(\"{Value}\")",
-            "notContains_i" => $"!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
-            "startsWith" => $"{Field}.StartsWith(\"{Value}\")",
-            "endsWith" => $"{Field}.EndsWith(\"{Value}\")",
-            "blank" => $"string.IsNullOrEmpty(\"{Field}\")",
-            "notBlank" => $"!string.IsNullOrEmpty(\"{Field}\")",
-            _ => "",
-        };
+        private string MapTextCondition()
+            => Field.Split('.').Length > 1 ? MapNotNestedTextCondition() : MapNestedTextCondition();
 
+        private string MapNotNestedTextCondition()
+        {
+            return Operator switch
+            {
+                "equals" => $"{Field} = \"{Value}\"",
+                "notEqual" => $"{Field} != \"{Value}\"",
+                "contains" => $"{Field}.Contains(\"{Value}\")",
+                "contains_i" => $"{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
+                "notContains" => $"!{Field}.Contains(\"{Value}\")",
+                "notContains_i" => $"!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
+                "startsWith" => $"{Field}.StartsWith(\"{Value}\")",
+                "endsWith" => $"{Field}.EndsWith(\"{Value}\")",
+                "blank" => $"string.IsNullOrEmpty(\"{Field}\")",
+                "notBlank" => $"!string.IsNullOrEmpty(\"{Field}\")",
+                _ => "",
+            };
+        }
         private string MapNestedTextCondition() => Operator switch
         {
             "equals" => $"np({Field}) = \"{Value}\"",
