@@ -21,6 +21,7 @@
         {
             if (!Field.StartsWith('@') && (Field.Contains("guid", StringComparison.InvariantCultureIgnoreCase) || Field.Contains("parent", StringComparison.InvariantCultureIgnoreCase)))
                 Field = Field.Insert(0, "@");
+            Value = Value.Contains('\\') ? Value.Replace("\\", "") : Value;
 
             return Type.ToLowerInvariant() switch
             {

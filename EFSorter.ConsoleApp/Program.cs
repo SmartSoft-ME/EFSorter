@@ -56,7 +56,7 @@ var notInFilter = new List<Filter>
 };
 var threeFilters = new List<Filter>
 {
-    new(new("FirstName","text","contains_i","e"), "or",
+    new(new("FirstName","text","contains_i","\\"), "or",
     new("FirstName","text","contains_i","a")),
     new(new("Id", "number", "equals", "1"), null, null),
 };
@@ -72,7 +72,7 @@ var parentFilter = new List<Filter>
 
 var textFilter = new List<Filter>
 {
-    new(new("FirstName","text","contains_i","e"), null,null)
+    new(new("FirstName","text","contains_i","m\\"), null,null)
 };
 var filter = new MultiFilter(dateFilter);
 var filter1 = new MultiFilter(blankFilter);
