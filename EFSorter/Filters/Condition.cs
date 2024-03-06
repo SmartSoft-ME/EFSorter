@@ -97,8 +97,8 @@
                 "notContains_i" => $"!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
                 "startsWith" => $"{Field}.StartsWith(\"{Value}\")",
                 "endsWith" => $"{Field}.EndsWith(\"{Value}\")",
-                "blank" => $"string.IsNullOrEmpty(\"{Field}\")",
-                "notBlank" => $"!string.IsNullOrEmpty(\"{Field}\")",
+                "blank" => $"string.IsNullOrEmpty({Field})",
+                "notBlank" => $"!string.IsNullOrEmpty({Field})",
                 _ => "",
             };
         }
@@ -112,8 +112,8 @@
             "notContains_i" => $"np({Field}) != null &&!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
             "startsWith" => $"np({Field}) != null &&{Field}.StartsWith(\"{Value}\")",
             "endsWith" => $"np({Field}) != null &&{Field}.EndsWith(\"{Value}\")",
-            "blank" => $"np({Field}) != null && string.IsNullOrEmpty(\"{Field}\")",
-            "notBlank" => $"np({Field}) != null && !string.IsNullOrEmpty(\"{Field}\")",
+            "blank" => $"string.IsNullOrEmpty(np({Field}))",
+            "notBlank" => $"!string.IsNullOrEmpty(np({Field}))",
             _ => "",
         };
         private string MapGuidsCondition() => Operator switch

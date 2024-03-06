@@ -23,7 +23,7 @@ people.First().Addresses.FirstOrDefault()!.Guid = new Guid("e97eef8f-5636-42a5-8
 people.First().Parent = new Person()
 {
     Id = Ids + 1,
-    FirstName = "Findme",
+    FirstName = "FindMe",
     BirthDay = DateTime.Now,
     Addresses = new(),
     Nachos = new()
@@ -34,7 +34,7 @@ Console.WriteLine("<------------------------>");
 foreach (var person in people)
 {
     person.Blank = person.Id % 2 == 1 ? "A" : "";
-    Console.WriteLine(person.FirstName + ", " + person.BirthDay);
+    Console.WriteLine(person.FirstName + ", " + person.Parent);
 }
 
 // filters
@@ -67,7 +67,7 @@ var test1 = new List<Filter>
 
 var parentFilter = new List<Filter>
 {
-    new(new("Parent.FirstName","text","contains_i","Find"),"AND",null)
+    new(new("Parent.FirstName","text","startsWith","F"),"AND",null)
 };
 
 var textFilter = new List<Filter>
@@ -84,17 +84,12 @@ var filter6 = new MultiFilter(dateTimeFilter);
 var filter7 = new MultiFilter(parentFilter);
 
 var res4 = people.AsQueryable().ApplyFilters(filter7, null);
-var res = people.AsQueryable().ApplyFilters(filter4, null);
-var res1 = people.AsQueryable().ApplyFilters(filter5, null);
-var res2 = people.AsQueryable().ApplyFilters(filter, null);
-var res3 = people.AsQueryable().ApplyFilters(filter6, null);
 
 Console.WriteLine("After Applying the filter");
+var resDynamic = people.AsQueryable().Where("string.IsNullOrEmpty(np(@Parent.Firstname))").ToList();
+var dynmaicQuery = filter7.ToString();
 Console.WriteLine("<------------------------>");
-Console.WriteLine("Date filter result:");
-res2.ToList().ForEach(Console.WriteLine);
-Console.WriteLine("DateTime filter result:");
-res3.ToList().ForEach(Console.WriteLine);
+
 res4.ToList().ForEach(Console.WriteLine);
 
 var t = new ExcelGenerator<Person>(people);
