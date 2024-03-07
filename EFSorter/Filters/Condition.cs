@@ -63,8 +63,8 @@
                 "notEqual" => $"{Field} != \"{validDate:s}\"",
                 "lessThan" => $"{Field} < \"{validDate:s}\"",
                 "greaterThan" => $"{Field} > \"{validDate:s}\"",
-                "blank" => $"{Field} == null",
-                "notBlank" => $"{Field} != null",
+                "blank" => $"{Field} != null",
+                "notBlank" => $"{Field} == null",
                 _ => "",
             };
         }
@@ -77,8 +77,8 @@
             "lessThanOrEqual" => $"{Field} <= {Value}",
             "greaterThan" => $"{Field} > {Value}",
             "greaterThanOrEqual" => $"{Field} >= {Value}",
-            "blank" => $"{Field} == null",
-            "notBlank" => $"{Field} != null",
+            "blank" => $"{Field} != null",
+            "notBlank" => $"{Field} == null",
             _ => "",
         };
 
@@ -97,8 +97,8 @@
                 "notContains_i" => $"!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
                 "startsWith" => $"{Field}.StartsWith(\"{Value}\")",
                 "endsWith" => $"{Field}.EndsWith(\"{Value}\")",
-                "blank" => $"string.IsNullOrEmpty({Field})",
-                "notBlank" => $"!string.IsNullOrEmpty({Field})",
+                "blank" => $"!string.IsNullOrEmpty({Field})",
+                "notBlank" => $"string.IsNullOrEmpty({Field})",
                 _ => "",
             };
         }
@@ -112,8 +112,8 @@
             "notContains_i" => $"np({Field}) != null &&!{Field}.ToLower().Contains(\"{Value.ToLower()}\")",
             "startsWith" => $"np({Field}) != null &&{Field}.StartsWith(\"{Value}\")",
             "endsWith" => $"np({Field}) != null &&{Field}.EndsWith(\"{Value}\")",
-            "blank" => $"string.IsNullOrEmpty(np({Field}))",
-            "notBlank" => $"!string.IsNullOrEmpty(np({Field}))",
+            "blank" => $"!string.IsNullOrEmpty(np({Field}))",
+            "notBlank" => $"string.IsNullOrEmpty(np({Field}))",
             _ => "",
         };
         private string MapGuidsCondition() => Operator switch
@@ -125,8 +125,8 @@
 
         private string MapObjectCondition() => Operator switch
         {
-            "blank" => $"{Field} == null",
-            "notBlank" => $"{Field} != null",
+            "blank" => $"{Field} != null",
+            "notBlank" => $"{Field} == null",
             _ => "",
         };
     }
