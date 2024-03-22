@@ -5,8 +5,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Description>Ef soreter for IQuery</Description>
-		<FileVersion>2.0.2.2</FileVersion>
-		<Version>2.3.2</Version>
+		<FileVersion>2.0.2.3</FileVersion>
+		<Version>2.3.3</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
