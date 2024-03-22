@@ -40,7 +40,7 @@
             var validDate = string.IsNullOrEmpty(Value) ? DateTime.UtcNow : DateTime.Parse(Value).ToUniversalTime().Date;
             return Operator switch
             {
-                "equals" => $"{Field}.Date = DateTime({validDate.Ticks},1)",
+                "equals" => $"{Field} >= DateTime({validDate.Ticks},1) && {Field} <= DateTime({validDate.AddDays(1).Ticks},1)",
                 "notEqual" => $"{Field}.Date != DateTime({validDate.Ticks},1)",
                 "lessThan" => $"{Field}.Date < DateTime({validDate.Ticks},1)",
                 "greaterThan" => $"{Field}.Date > DateTime({validDate.Ticks},1)",
