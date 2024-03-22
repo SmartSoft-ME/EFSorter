@@ -37,7 +37,7 @@
 
         private string MapDateCondition()
         {
-            var isDate = DateTime.TryParse(Value, out var validDate);
+            var validDate = string.IsNullOrEmpty(Value) ? DateTime.UtcNow : DateTime.Parse(Value).ToUniversalTime().Date;
             return Operator switch
             {
                 "equals" => $"{Field}.Date = DateTime({validDate.Ticks},1)",
