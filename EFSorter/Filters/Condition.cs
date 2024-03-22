@@ -46,8 +46,9 @@
 
             return Operator switch
             {
-                "equals" => $"{Field}.Date = \"{validDate:u}\"",
-                "notEqual" => $"{Field}.Date != \"{validDate:u}\"",
+                //"equals" => $"{Field}.Date = \"{validDate:u}\"",
+                "equals" => $"{Field} = \"{validDate:u}\"",
+                "notEqual" => $"{Field}.Date != \"{validDate}\"",
                 "lessThan" => $"{Field}.Date < \"{validDate:u}\"",
                 "greaterThan" => $"{Field}.Date > \"{validDate:u}\"",
                 "blank" => $"{Field}.Date == null",
