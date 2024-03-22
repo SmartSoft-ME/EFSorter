@@ -38,15 +38,10 @@
         private string MapDateCondition()
         {
             var isDate = DateTime.TryParse(Value, out var validDate);
-            if (validDate.Kind == DateTimeKind.Unspecified)
-                validDate = new DateTime(validDate.Ticks, DateTimeKind.Utc);
-            if (validDate.Kind != DateTimeKind.Utc)
-                validDate = validDate.ToUniversalTime();
-            if (!isDate) return "";
-
+            var date = new DateTime(validDate.Ticks, DateTimeKind.Utc);
             return Operator switch
             {
-                "equals" => $"{Field} = \"{Value}\"",
+                "equals" => $"{Field} = DateTime({validDate.Ticks},{DateTimeKind.Utc})",
                 "notEqual" => $"{Field}.Date != \"{validDate:u}\"",
                 "lessThan" => $"{Field}.Date < \"{validDate:u}\"",
                 "greaterThan" => $"{Field}.Date > \"{validDate:u}\"",
