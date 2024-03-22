@@ -83,7 +83,7 @@ var filter5 = new MultiFilter(test1);
 var filter6 = new MultiFilter(dateTimeFilter);
 var filter7 = new MultiFilter(parentFilter);
 
-var res4 = people.AsQueryable().ApplyFilters(filter7, null);
+var res4 = people.AsQueryable().ApplyFilters(filter, null);
 
 Console.WriteLine("After Applying the filter");
 var resDynamic = people.AsQueryable().Where("string.IsNullOrEmpty(np(@Parent.Firstname))").ToList();

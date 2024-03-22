@@ -38,15 +38,15 @@
         private string MapDateCondition()
         {
             var isDate = DateTime.TryParse(Value, out var validDate);
-            validDate = validDate.Date;
+
             if (!isDate) return "";
 
             return Operator switch
             {
-                "equals" => $"{Field}.Date = \"{validDate:s}\"",
-                "notEqual" => $"{Field}.Date != \"{validDate:s}\"",
-                "lessThan" => $"{Field}.Date < \"{validDate:s}\"",
-                "greaterThan" => $"{Field}.Date > \"{validDate:s}\"",
+                "equals" => $"{Field}.Date = \"{validDate:u}\"",
+                "notEqual" => $"{Field}.Date != \"{validDate:u}\"",
+                "lessThan" => $"{Field}.Date < \"{validDate:u}\"",
+                "greaterThan" => $"{Field}.Date > \"{validDate:u}\"",
                 "blank" => $"{Field}.Date == null",
                 "notBlank" => $"{Field}.Date != null",
                 _ => "",
