@@ -38,7 +38,10 @@
         private string MapDateCondition()
         {
             var isDate = DateTime.TryParse(Value, out var validDate);
-
+            if (validDate.Kind == DateTimeKind.Unspecified)
+                validDate = new DateTime(validDate.Ticks, DateTimeKind.Utc);
+            if (validDate.Kind != DateTimeKind.Utc)
+                validDate = validDate.ToUniversalTime();
             if (!isDate) return "";
 
             return Operator switch
